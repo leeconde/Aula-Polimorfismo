@@ -1,5 +1,6 @@
 package entities;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,14 +8,14 @@ public class UsedProduct extends Product {
 
     private Date manufactureDate;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public UsedProduct() {
     }
 
-    public UsedProduct(Date manufactureDate, String name, Double price) {
+    public UsedProduct(String manufactureDate, String name, Double price) throws ParseException {
         super(name, price);
-        this.manufactureDate = manufactureDate;
+        this.manufactureDate = sdf.parse(manufactureDate);
     }
 
     public Date getManufactureDate() {
@@ -27,7 +28,7 @@ public class UsedProduct extends Product {
 
     @Override
     public String priceTag() {
-        return super.priceTag() + " Manufacture Date: " + manufactureDate;
+        return super.priceTag() + " Manufacture Date: " + sdf.format(manufactureDate);
     }
 
 }

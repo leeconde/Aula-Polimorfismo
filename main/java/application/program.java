@@ -18,8 +18,6 @@ public class program {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
         List<Product> list = new ArrayList<>();
 
         System.out.println("Enter the number of products: ");
@@ -42,7 +40,7 @@ public class program {
                 case 'u':
                     System.out.println("Manufacture date: ");
                     String date = sc.next();
-                    UsedProduct up = new UsedProduct(sdf.parse(date), name, price);
+                    UsedProduct up = new UsedProduct(date, name, price);
                     list.add(up);
                     break;
                 case 'i':
@@ -52,17 +50,16 @@ public class program {
                     list.add(ip);
                     break;
                 default:
-                    break;
+                    throw new IllegalStateException("Invalid type");
             }
         }
+        sc.close();
 
         System.out.println();
         System.out.println("PRICE TAGS:");
         for (Product p : list) {
             System.out.println(p.priceTag());
         }
-
-        sc.close();
 
     }
 
